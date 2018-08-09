@@ -24,7 +24,8 @@ class WindowEdit(object):
     destination_byte  = 0X00
     ValueofChangeMax  = 2
     counter_of_SaveDB = 1
-    ComPort      = 'COM3'
+    ComPort           = 'COM3'
+    globalnameDB      = 'LastPowerDown.db'
     print("RF     PADAC    RX     TX    LNA   GAIN    M2828    M5866")
     def SerialConnection(self,ui):
         try:
@@ -78,23 +79,23 @@ class WindowEdit(object):
             print("Table couldn't be Created")
         print(params)
         self.PrintDB()
-    def ReceiveDB(self, ui, nameofDB):
+    def ReceiveDB(self,ui, nameofDB):
         rcvDB = sqlite3.connect(nameofDB)
         cur = rcvDB.cursor()
         result = cur.execute("SELECT ID,RF, PADAC, RXVGA, TXVGA, TXLNA, RXGAIN, MAX FROM DB")
-        try:
-            for row in result:
-                ui.RFFrequency_Line.setText(str(row[1]))
-                ui.PADACOutputBias_Line.setText(str(row[2]))
-                ui.RXVGAGain_Line.setText(str(row[3]))
-                ui.TXVGAGain_Line.setText(str(row[4]))
-                ui.RXLNAGain_ComboBox.setCurrentIndex(int(row[5]))
-                ui.TXBasebandGain_ComboBox.setCurrentIndex(int(row[6]))
-                self.ValueofChangeMax = int(row[7])
-        except sqlite3.OperationalError:
-            print("Operational Error")
-        except:
-            print("Couldn't Retrieve Data From Database")
+##        try:
+        for row in result:
+            ui.RFFrequency_Line.setText(str(row[1]))
+            ui.PADACOutputBias_Line.setText(str(row[2]))
+            ui.RXVGAGain_Line.setText(str(row[3]))
+            ui.TXVGAGain_Line.setText(str(row[4]))
+            ui.RXLNAGain_ComboBox.setCurrentIndex(int(row[5]))
+            ui.TXBasebandGain_ComboBox.setCurrentIndex(int(row[6]))
+            self.ValueofChangeMax = int(row[7])
+##        except sqlite3.OperationalError:
+##            print("Operational Error")
+##        except:
+##            print("Couldn't Retrieve Data From Database")
 
         
 
@@ -279,16 +280,24 @@ class WindowEdit(object):
         ui.Max2828_ComboBox.currentIndexChanged.connect(lambda: self.ValuetoHex(ui))
         ui.Max5866_ComboBox.currentIndexChanged.connect(lambda: self.des5866())
         ui.Max5866_ComboBox.currentIndexChanged.connect(lambda: self.ValuetoHex(ui))
-        
-        ui.RFFrequency_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-        ui.PADACOutputBias_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-        ui.RXVGAGain_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-        ui.TXVGAGain_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-        ui.RXLNAGain_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-        ui.TXBasebandGain_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, 'test.db'))        
-        ui.Max2828_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, 'test.db'))        
-        ui.Max5866_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, 'test.db'))
-
+##############  Database&Combobox
+##        indexOfSetupsCombobox
+  
+        def ComboboxDB():
+            if ui.Setups_ComboBox.currentText() != '':
+                self.globalnameDB = ui.Setups_ComboBox.currentText()+'.db'
+                self.SaveDB(ui, self.globalnameDB)
+            print(self.globalnameDB)
+        ui.Setups_ComboBox.currentIndexChanged.connect(lambda: ComboboxDB())
+        ui.RFFrequency_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.PADACOutputBias_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.RXVGAGain_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.TXVGAGain_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.RXLNAGain_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.TXBasebandGain_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))        
+        ui.Max2828_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))        
+        ui.Max5866_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
+        ui.Setups_ComboBox.currentIndexChanged.connect(lambda: self.ReceiveDB(ui, self.globalnameDB))
                                                  
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.RF_Package))
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.PADAC_Package))
@@ -297,12 +306,7 @@ class WindowEdit(object):
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.LNA_Package))
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.GAIN_Package))
         ui.SendAll_Button.clicked.connect(lambda: self.checktodes())
-##############  Database&Combobox
-##        indexOfSetupsCombobox
-        def ComboboxDB():
-            if ui.Setups_ComboBox.currentText() == 'LastPowerDown':
-                self.ReceiveDB(ui, 'test.db')
-        ui.Setups_ComboBox.currentIndexChanged.connect(lambda: ComboboxDB())
+      
 ##############        
 ##############
         sys.exit(app.exec_())
