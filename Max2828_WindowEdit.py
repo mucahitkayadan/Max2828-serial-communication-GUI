@@ -116,9 +116,9 @@ class WindowEdit(object):
         try:
             result = cur.execute("SELECT CB1, CB2, CB3 FROM CDB")
             for row in result:                
-                print("1   :", row[1])
-                print("2   :", row[2])
-                print("3   :", row[3])
+                print("1   :", row[0])
+                print("2   :", row[1])
+                print("3   :", row[2])
         except sqlite3.OperationalError:
             print("Operational Error")
         except:
@@ -129,9 +129,9 @@ class WindowEdit(object):
         result = cur.execute("SELECT CB1,CB2,CB3 FROM CDB")
         try:
             for row in result:
-                ui.Setups_ComboBox.insertItem(2,str(row[1]))
-                ui.Setups_ComboBox.insertItem(3,str(row[2]))
-                ui.Setups_ComboBox.insertItem(4,str(row[3]))
+                ui.Setups_ComboBox.insertItem(2,str(row[0]))
+                ui.Setups_ComboBox.insertItem(3,str(row[1]))
+                ui.Setups_ComboBox.insertItem(4,str(row[2]))
         except sqlite3.OperationalError:
             print("Operational Error")
         except:
@@ -172,11 +172,28 @@ class WindowEdit(object):
             raise
         except:
             print("Error occured")
-        
+    def receiveack(self):
+        try:
+            our_buffer = []
+            counter = 0
+            while counter < 12:
+                msg = self.con.read()
+##                msg = msg.hex()
+##                msg = int(msg,16)
+                our_buffer.append(msg)            
+                print(msg)
+                counter = counter + 1
+            print(our_buffer)
+        except serial.SerialException:
+            print("Serial Error for Ack")
+            raise
+        except:
+            print("Error occured for Ack")
     def mainfunc(self, PackageList):
         try:
             self.send(PackageList)
             self.receive(PackageList)
+            self.receiveack()
         except serial.SerialException:
             print("No connection found")
             raise
@@ -325,7 +342,7 @@ class WindowEdit(object):
                 self.globalnameDB = ui.Setups_ComboBox.currentText()+'.db'
                 self.SaveDB(ui, self.globalnameDB)
             print(self.globalnameDB + " created")
-##        self.SaveComboboxDB(ui)
+        self.SaveComboboxDB(ui)
         ComboboxDB()
         ui.RFFrequency_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
         ui.PADACOutputBias_ScrollBar.valueChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
@@ -336,7 +353,7 @@ class WindowEdit(object):
         ui.Max2828_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))        
         ui.Max5866_ComboBox.currentIndexChanged.connect(lambda: self.SaveDB(ui, self.globalnameDB))
         ui.Setups_ComboBox.currentIndexChanged.connect(lambda: self.ReceiveDB(ui, self.globalnameDB))
-##        self.ReceiveComboboxDB(ui)
+        self.ReceiveComboboxDB(ui)
                                                  
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.RF_Package))
         ui.SendAll_Button.clicked.connect(lambda: self.mainfunc(self.PADAC_Package))
