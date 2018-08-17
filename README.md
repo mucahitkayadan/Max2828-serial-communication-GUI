@@ -1,5 +1,5 @@
 # Python
-My Python Projects
+#My Python Projects,
 Execute Max2828_WindowEdit file.
 This project contains sqlite3, pyserial, pyqt and pystruct
 I tried to make Gui application for Pc-Max2828 serial communication
