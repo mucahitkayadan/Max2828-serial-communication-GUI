@@ -163,6 +163,8 @@ class WindowEdit(object):
                 print("Package received successfully")
             else:
                 for i in range(3):
+                    print("Trying again... "+ i + ". time ")
+                    sleep(1)
                     self.send(PackageList)
                 print("Package could not be transfered")
                 ui.close_application()
@@ -178,12 +180,14 @@ class WindowEdit(object):
             counter = 0
             while counter < 12:
                 msg = self.con.read()
-##                msg = msg.hex()
-##                msg = int(msg,16)
+                msg = msg.hex()
+                msg = int(msg,16)
                 our_buffer.append(msg)            
                 print(msg)
                 counter = counter + 1
             print(our_buffer)
+            print("Acknowledgement received successfully")
+            print("========================================================")
         except serial.SerialException:
             print("Serial Error for Ack")
             raise
