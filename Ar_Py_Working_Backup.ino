@@ -5,12 +5,7 @@ char destination_byte = 0X02;
 char command_byte     = 0XBB;
 char zero_byte        = 0X00;
 char pack[12];
-char sourceReturn();
-char destReturn();
-char sourceValue;
-char destValue;
 int ndx = 0;
-int mdx = 0;
 
                 
 void setup() {
