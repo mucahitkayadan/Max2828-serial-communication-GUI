@@ -73,7 +73,7 @@ void setup() {
   while(!Serial){;}
   state = 0;
   current_byte = 0;
-  packNum = 0;
+  packNum = 1;
   ack_byte  = 0X01;
   pinMode(13, OUTPUT);
   //digitalWrite(13,LOW);
@@ -97,16 +97,17 @@ void loop() {
               current_byte++;
               if(current_byte == 12){
                 state = 2;
-                packNum++;
               }
             }
             break;
           case 2:
-            if(checkCommandTotal(packNum, pack[4], pack[5])){
-              digitalWrite(13,HIGH);
-            }
-            if(checkStarter(pack[0]) && checkSource(pack[1]) && checkDest(pack[2]) && checkCommand(pack[3])){
+            //if(checkCommandTotal(packNum, pack[4], pack[5])){
+            //  digitalWrite(13,HIGH);
+            //}
+            if( checkCommandTotal(packNum, pack[4], pack[5]) && checkStarter(pack[0]) && checkSource(pack[1]) && checkDest(pack[2]) && checkCommand(pack[3])){
               //working
+              packNum++;
+                 if(packNum == 8) packNum = 1;
               ack_byte = 0X01;
               state = 3;
             }else{
