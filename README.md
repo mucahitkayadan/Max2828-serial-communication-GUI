@@ -129,30 +129,15 @@ Name of Button: **SendAll\_Button**
 
 App consists 7 packages and each package consists 12 bytes.
 
-|
- | Starter Byte | Source Byte | DestinationByte(\*) | Command Byte | Data Byte 1 | Data Byte 2 | Byte 7 -Byte 12 |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| RF Frequency | 0XAA | 0X01 | 0X02 / 0X03 | 0X01 |
- |
- | 0X00 |
-| PA DAC Output Bias | 0XAA | 0X01 | 0X02 / 0X03 | 0X02 |
- |
- | 0X00 |
-| RX VGA GAIN | 0XAA | 0X01 | 0X02 / 0X03 | 0X03 |
- |
- | 0X00 |
-| TX VGA GAIN | 0XAA | 0X01 | 0X02 / 0X03 | 0X04 |
- |
- | 0X00 |
-| RX LNA GAIN | 0XAA | 0X01 | 0X02 / 0X03 | 0X05 |
- |
- | 0X00 |
-| TX Baseband GAIN | 0XAA | 0X01 | 0X02 / 0X03 | 0X06 |
- |
- | 0X00 |
-| Max2828/Max5866 | 0XAA | 0X01 | 0X02 / 0X03 | 0X07 |
- |
- | 0X00 |
+| Starter Byte      | Source Byte | Destination Byte(*) | Command Byte | Data Byte 1 | Data Byte 2 | Byte 7 - Byte 12 |
+| ------------------ | ------------| --------------------- | --------------| ------------| ------------| ----------------- |
+| RF Frequency      | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X01         |              | 0X00              |
+| PA DAC Output Bias | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X02         |              | 0X00              |
+| RX VGA GAIN        | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X03         |              | 0X00              |
+| TX VGA GAIN        | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X04         |              | 0X00              |
+| RX LNA GAIN        | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X05         |              | 0X00              |
+| TX Baseband GAIN   | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X06         |              | 0X00              |
+| Max2828/Max5866    | 0XAA        | 0X01                 | 0X02 / 0X03   | 0X07         |              | 0X00              |
 
 [\*] Max2828 is 0X02 and Max 5866 is 0X03. As default Max2828.
 
@@ -160,31 +145,31 @@ Minimum and maximum values for pack datas:
 
 Note: For RF Frequency and PA DAC Output Bias, they are using 2 bytes. For others, Data Byte 1 is zero byte and Data Byte 2 consists data.
 
-|
- | Minimum Value | Maximum Value |
-| --- | --- | --- |
-| RF Frequency | 0X1324 | 0X170C |
-| PA DAC Output Bias | 0X00 | 0X200 |
-| RX VGA GAIN | 0X00 | 0X20 |
-| TX VGA GAIN | 0X00 | 0X40 |
-| RX LNA GAIN | 0X00 | 0X02 |
-| TX Baseband GAIN | 0X00 | 0X01 |
-| Max2828 | 0X00 | 0X03 |
-| Max5866 | 0X00 | 0X04 |
+| Parameter          | Minimum Value | Maximum Value |
+| ------------------ | ------------- | ------------- |
+| RF Frequency      | 0X1324         | 0X170C         |
+| PA DAC Output Bias | 0X00           | 0X200          |
+| RX VGA GAIN        | 0X00           | 0X20           |
+| TX VGA GAIN        | 0X00           | 0X40           |
+| RX LNA GAIN        | 0X00           | 0X02           |
+| TX Baseband GAIN   | 0X00           | 0X01           |
+| Max2828            | 0X00           | 0X03           |
+| Max5866            | 0X00           | 0X04           |
+
 
 For Example:
 
-|
- | Value(DEC) | Value(HEX) | Data Byte 1 | Data Byte 2 |
-| --- | --- | --- | --- | --- |
-| RF Frequency | 4900 | 0X1324 | 0X13 | 0X24 |
-| PA DAC Output Bias | 0X00 | 0X1FF | 0X01 | 0XFF |
-| RX VGA GAIN | 0X00 | 0X20 | 0X00 | 0X20 |
-| TX VGA GAIN | 0X00 | 0X40 | 0X00 | 0X40 |
-| RX LNA GAIN | 0X00 | 0X02 | 0X00 | 0X02 |
-| TX Baseband GAIN | 0X00 | 0X01 | 0X00 | 0X01 |
-| Max2828 | 0X00 | 0X03 | 0X00 | 0X03 |
-| Max5866 | 0X00 | 0X04 | 0X00 | 0X04 |
+| Parameter          | Value (DEC) | Value (HEX) | Data Byte 1 | Data Byte 2 |
+| ------------------ | ------------ | ----------- | ----------- | ----------- |
+| RF Frequency      | 4900         | 0X1324      | 0X13        | 0X24        |
+| PA DAC Output Bias | 0            | 0X00        | 0X01        | 0XFF        |
+| RX VGA GAIN        | 0            | 0X00        | 0X00        | 0X20        |
+| TX VGA GAIN        | 0            | 0X00        | 0X00        | 0X40        |
+| RX LNA GAIN        | 0            | 0X00        | 0X00        | 0X02        |
+| TX Baseband GAIN   | 0            | 0X00        | 0X00        | 0X01        |
+| Max2828            | 0            | 0X00        | 0X00        | 0X03        |
+| Max5866            | 0            | 0X00        | 0X00        | 0X04        |
+
 
 1. **PROGRAMMING**
 
@@ -276,16 +261,15 @@ When device responses, program receives bytes with this code. Each byte pack is 
 
 When you send packs, device responses to PC with acknowledgement. This function takes acknowledgement packs. Table of acknowledgement:
 
-|
- | Starter Byte | Source Byte(\*) | Destination Byte | Command Byte | Truth Byte |
-| --- | --- | --- | --- | --- | --- |
-| RF Frequency | 0XAA | 0X02 / 0X03 | 0X01 | 0X01 | 0X00/0X01 |
-| PA DAC Output Bias | 0XAA | 0X02 / 0X03 | 0X01 | 0X02 | 0X00/0X01 |
-| RX VGA GAIN | 0XAA | 0X02 / 0X03 | 0X01 | 0X03 | 0X00/0X01 |
-| TX VGA GAIN | 0XAA | 0X02 / 0X03 | 0X01 | 0X04 | 0X00/0X01 |
-| RX LNA GAIN | 0XAA | 0X02 / 0X03 | 0X01 | 0X05 | 0X00/0X01 |
-| TX Baseband GAIN | 0XAA | 0X02 / 0X03 | 0X01 | 0X06 | 0X00/0X01 |
-| Max2828/ Max5866 | 0XAA | 0X02 / 0X03 | 0X01 | 0X07 | 0X00/0X01 |
+| Parameter          | Starter Byte | Source Byte (*) | Destination Byte | Command Byte | Truth Byte |
+| ------------------ | ------------ | --------------- | ----------------- | ------------ | ---------- |
+| RF Frequency      | 0XAA         | 0X02 / 0X03      | 0X01              | 0X01         | 0X00/0X01  |
+| PA DAC Output Bias | 0XAA         | 0X02 / 0X03      | 0X01              | 0X02         | 0X00/0X01  |
+| RX VGA GAIN        | 0XAA         | 0X02 / 0X03      | 0X01              | 0X03         | 0X00/0X01  |
+| TX VGA GAIN        | 0XAA         | 0X02 / 0X03      | 0X01              | 0X04         | 0X00/0X01  |
+| RX LNA GAIN        | 0XAA         | 0X02 / 0X03      | 0X01              | 0X05         | 0X00/0X01  |
+| TX Baseband GAIN   | 0XAA         | 0X02 / 0X03      | 0X01              | 0X06         | 0X00/0X01  |
+| Max2828/ Max5866   | 0XAA         | 0X02 / 0X03      | 0X01              | 0X07         | 0X00/0X01  |
 
 [\*] Max2828 is 0X02 and Max 5866 is 0X03. As default Max2828.
 
@@ -311,17 +295,16 @@ This prepares packs. Converts to hexademical.
 
 Used items and item properties:
 
-|
- | All Objects in code (ID's) |
-| --- | --- |
-| Central Widget | MainWindow |
-| Buttons | SendAll\_ButtonDel\_Button |
-| Combo Boxes | Setups\_ComboBoxRXLNAGain\_ComboBoxTXBasebandGain\_ComboBoxSetups\_ComboBoxMax2828\_ComboBoxMax5866\_ComboBox |
-| Scroll Bars | RFFrequency\_ScrollBarPADACOutputBias\_ScrollBarRXVGAGain\_ScrollBarTXVGAGain\_ScrollBar |
-| Line Edits | RFFrequency\_LinePADACOutputBias\_LineRXVGAGain\_LineTXVGAGain\_LineComPort\_Line |
-| Labels | Lock\_LabelConnectionStatus\_LabelConnection\_LabelSetups\_LabelRFFrequency\_LabelPADACOutputBias\_LabelMax2828\_TopLabelMax5866\_TopLabelPADACOutputBias\_TopLabelRFFrequency\_TopLabelTXBasebandGain\_LabelRXLNAGain\_TopLabelRXVGAGain\_TopLabelTXBasebandGain\_TopLabelTXVGAGain\_TopLabel |
-| Check Box | Lock\_CheckBox |
-| Layouts | VerticalLayout\_1VerticalLayout\_2TXBasebandGain\_LayoutTopSide\_HorizontalLayoutRFFrequency\_LayoutPADACOutputBias\_Layout |
-| Spacers | verticalSpacerverticalSpacer\_2horizontalSpacerhorizontalSpacer\_2 |
-| Lines | LineLine\_2Line\_3Line\_4 |
-| Icon | icon |
+| Object Type        | Object ID                                                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Central Widget     | MainWindow                                                                                          |
+| Buttons            | SendAll_Button, Del_Button                                                                           |
+| Combo Boxes        | Setups_ComboBoxRXLNAGain_ComboBoxTXBasebandGain_ComboBoxSetups_ComboBoxMax2828_ComboBoxMax5866_ComboBox |
+| Scroll Bars        | RFFrequency_ScrollBar, PADACOutputBias_ScrollBar, RXVGAGain_ScrollBar, TXVGAGain_ScrollBar              |
+| Line Edits         | RFFrequency_Line, PADACOutputBias_Line, RXVGAGain_Line, TXVGAGain_Line, ComPort_Line                   |
+| Labels             | Lock_Label, ConnectionStatus_Label, Connection_Label, Setups_Label, RFFrequency_Label, PADACOutputBias_Label, Max2828_TopLabel, Max5866_TopLabel, PADACOutputBias_TopLabel, RFFrequency_TopLabel, TXBasebandGain_Label, RXLNAGain_TopLabel, RXVGAGain_TopLabel, TXBasebandGain_TopLabel, TXVGAGain_TopLabel |
+| Check Box          | Lock_CheckBox                                                                                        |
+| Layouts            | VerticalLayout_1, VerticalLayout_2, TXBasebandGain_Layout, TopSide_HorizontalLayout, RFFrequency_Layout, PADACOutputBias_Layout |
+| Spacers            | verticalSpacer, verticalSpacer_2, horizontalSpacer, horizontalSpacer_2                               |
+| Lines              | Line, Line_2, Line_3, Line_4                                                                       |
+| Icon               | icon                                                                                               |
